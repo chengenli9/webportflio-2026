@@ -12,21 +12,40 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 const carousel = document.querySelector('.projects-carousel');
 const carouselBtnLeft = document.querySelector('.carousel-btn-left');
 const carouselBtnRight = document.querySelector('.carousel-btn-right');
-const cardWidth = 320 + 24; // card width + gap
+const cards = Array.from(document.querySelectorAll('.project-card'));
+const dotsContainer = document.getElementById('cardDots');
+let currentIndex = 0;
 
-if (carousel && carouselBtnLeft && carouselBtnRight) {
-  carouselBtnLeft.addEventListener('click', () => {
-    carousel.scrollBy({
-      left: -cardWidth,
-      behavior: 'smooth'
-    });
+// Build dots
+cards.forEach((_, i) => {
+  const dot = document.createElement('span');
+  dot.className = 'card-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => { currentIndex = i; updateStack(); });
+  dotsContainer.appendChild(dot);
+});
+
+function updateStack() {
+  const dots = dotsContainer.querySelectorAll('.card-dot');
+  cards.forEach((card, i) => {
+    card.classList.remove('stack-active', 'stack-behind-1', 'stack-behind-2');
+    dots[i].classList.remove('active');
+    const diff = (i - currentIndex + cards.length) % cards.length;
+    if (diff === 0) { card.classList.add('stack-active'); dots[i].classList.add('active'); }
+    else if (diff === 1) card.classList.add('stack-behind-1');
+    else if (diff === 2) card.classList.add('stack-behind-2');
   });
+}
 
+updateStack();
+
+if (carouselBtnLeft && carouselBtnRight) {
+  carouselBtnLeft.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    updateStack();
+  });
   carouselBtnRight.addEventListener('click', () => {
-    carousel.scrollBy({
-      left: cardWidth,
-      behavior: 'smooth'
-    });
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateStack();
   });
 }
 

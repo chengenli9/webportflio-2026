@@ -126,7 +126,7 @@
     color: var(--accent);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -236,7 +236,7 @@
     font-size: clamp(1.6rem, 4vw, 2.4rem);
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 3rem;
+    margin-bottom: 3.63rem;
     line-height: 1.2;
   }
 
@@ -403,25 +403,15 @@
   }
   .carousel-wrapper {
     flex: 1;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
   }
   .projects-carousel {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 0.5rem 0;
-  }
-  .projects-carousel::-webkit-scrollbar {
-    height: 6px;
-  }
-  .projects-carousel::-webkit-scrollbar-track {
-    background: var(--border);
-  }
-  .projects-carousel::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 3px;
+    position: relative;
+    width: 436px;
+    height: 598px;
   }
   .carousel-btn {
     background: var(--accent);
@@ -445,17 +435,38 @@
     transform: scale(1.1);
   }
   .project-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 387px;
+    height: 569px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
-    flex: 0 0 320px;
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    transition: background 0.2s;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease, background 0.2s;
   }
-  .project-card:hover {
+  .project-card.stack-active {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    z-index: 10;
+    pointer-events: auto;
+  }
+  .project-card.stack-behind-1 {
+    opacity: 0.75;
+    transform: translate(14px, 14px) scale(0.97);
+    z-index: 9;
+  }
+  .project-card.stack-behind-2 {
+    opacity: 0.5;
+    transform: translate(28px, 28px) scale(0.94);
+    z-index: 8;
+  }
+  .project-card.stack-active:hover {
     background: #111c22;
   }
   .project-image {
@@ -465,34 +476,33 @@
     display: block;
   }
   .project-content {
-    padding: 1.5rem;
+    padding: 1.82rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.91rem;
     flex: 1;
   }
   .project-name {
     font-family: var(--mono);
-    font-size: 0.95rem;
+    font-size: 1.16rem;
     font-weight: 700;
     color: var(--text);
   }
   .project-desc-short {
-    font-size: 0.8rem;
+    font-size: 0.97rem;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.91rem;
   }
   .project-actions {
-    margin-bottom: 0.75rem;
-    flex-grow: 1;
+    margin-bottom: 0.91rem;
   }
   .read-more-btn {
     background: transparent;
     color: var(--accent);
     border: 1px solid var(--border);
-    padding: 0.4rem 0.8rem;
-    font-size: 0.7rem;
+    padding: 0.48rem 0.97rem;
+    font-size: 0.85rem;
     font-family: var(--mono);
     cursor: pointer;
     letter-spacing: 0.05em;
@@ -506,21 +516,45 @@
   .tag-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.48rem;
   }
   .tag {
     font-family: var(--mono);
-    font-size: 0.6rem;
-    padding: 0.2rem 0.5rem;
+    font-size: 0.73rem;
+    padding: 0.24rem 0.61rem;
     border: 1px solid var(--border);
     color: var(--muted);
     letter-spacing: 0.05em;
     transition: border-color 0.2s, color 0.2s;
     border-radius: 2px;
   }
-  .project-card:hover .tag {
+  .project-card.stack-active:hover .tag {
     border-color: var(--accent-mid);
     color: var(--accent);
+  }
+  /* ─── CARD DOTS ─── */
+  .card-dots {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.4;
+    transition: background 0.2s, transform 0.2s, opacity 0.2s;
+    cursor: pointer;
+  }
+  .card-dot:hover {
+    opacity: 0.7;
+  }
+  .card-dot.active {
+    background: var(--accent);
+    opacity: 1;
+    transform: scale(1.35);
   }
   /* ─── PROJECT MODAL ─── */
   .project-modal {
