@@ -117,3 +117,140 @@ projectModal.addEventListener('click', (e) => {
     projectModal.classList.remove('active');
   }
 });
+
+// ─── DRAWING OVERLAY ─── //
+const drawCanvas = document.getElementById('drawCanvas');
+const drawToggle = document.getElementById('drawToggle');
+const drawColorPicker = document.getElementById('drawColorPicker');
+const drawSizeSlider = document.getElementById('drawSize');
+const drawSizeLabel = document.getElementById('drawSizeLabel');
+const drawEraserBtn = document.getElementById('drawEraser');
+const drawClearBtn = document.getElementById('drawClear');
+const drawSwatches = document.querySelectorAll('.draw-swatch');
+const drawColorPickLabel = document.querySelector('.draw-color-pick');
+
+const ctx = drawCanvas.getContext('2d');
+
+let isDrawingMode = false;
+let isPointerDown = false;
+let currentColor = '#00d4a0';
+let strokeSize = 4;
+let isEraser = false;
+let lastX = 0, lastY = 0;
+
+function resizeCanvas() {
+  const imgData = (drawCanvas.width > 0 && drawCanvas.height > 0)
+    ? ctx.getImageData(0, 0, drawCanvas.width, drawCanvas.height)
+    : null;
+  drawCanvas.width = window.innerWidth;
+  drawCanvas.height = window.innerHeight;
+  if (imgData) ctx.putImageData(imgData, 0, 0);
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPos(e) {
+  if (e.touches && e.touches.length > 0) {
+    const r = drawCanvas.getBoundingClientRect();
+    return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+  }
+  return { x: e.offsetX, y: e.offsetY };
+}
+
+function startDraw(e) {
+  if (!isDrawingMode) return;
+  isPointerDown = true;
+  const { x, y } = getPos(e);
+  lastX = x; lastY = y;
+  // Draw a dot on click/tap
+  ctx.beginPath();
+  const r = (isEraser ? strokeSize * 2 : strokeSize) / 2;
+  ctx.arc(x, y, Math.max(r, 1), 0, Math.PI * 2);
+  if (isEraser) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0,0,0,1)';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = currentColor;
+  }
+  ctx.fill();
+}
+
+function draw(e) {
+  if (!isDrawingMode || !isPointerDown) return;
+  if (e.cancelable) e.preventDefault();
+  const { x, y } = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.lineWidth = isEraser ? strokeSize * 2 : strokeSize;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (isEraser) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.strokeStyle = 'rgba(0,0,0,1)';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = currentColor;
+  }
+  ctx.stroke();
+  lastX = x; lastY = y;
+}
+
+function endDraw() {
+  isPointerDown = false;
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+drawCanvas.addEventListener('mousedown', startDraw);
+drawCanvas.addEventListener('mousemove', draw);
+drawCanvas.addEventListener('mouseup', endDraw);
+drawCanvas.addEventListener('mouseleave', endDraw);
+drawCanvas.addEventListener('touchstart', startDraw, { passive: true });
+drawCanvas.addEventListener('touchmove', draw, { passive: false });
+drawCanvas.addEventListener('touchend', endDraw);
+
+// Toggle drawing mode
+drawToggle.addEventListener('click', () => {
+  isDrawingMode = !isDrawingMode;
+  document.body.classList.toggle('draw-active', isDrawingMode);
+});
+
+// Color swatches
+drawSwatches.forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    currentColor = swatch.dataset.color;
+    isEraser = false;
+    drawEraserBtn.classList.remove('active');
+    drawSwatches.forEach(s => s.classList.remove('active'));
+    drawColorPickLabel.classList.remove('active');
+    swatch.classList.add('active');
+  });
+});
+
+// Custom color picker
+drawColorPicker.addEventListener('input', (e) => {
+  currentColor = e.target.value;
+  isEraser = false;
+  drawEraserBtn.classList.remove('active');
+  drawSwatches.forEach(s => s.classList.remove('active'));
+  drawColorPickLabel.classList.add('active');
+});
+
+// Size slider
+drawSizeSlider.addEventListener('input', () => {
+  strokeSize = parseInt(drawSizeSlider.value, 10);
+  drawSizeLabel.textContent = strokeSize;
+});
+
+// Eraser toggle
+drawEraserBtn.addEventListener('click', () => {
+  isEraser = !isEraser;
+  drawEraserBtn.classList.toggle('active', isEraser);
+});
+
+// Clear canvas
+drawClearBtn.addEventListener('click', () => {
+  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+});

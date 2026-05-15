@@ -480,5 +480,37 @@
   <p>Built with HTML &amp; CSS · Portland, OR</p>
 </footer>
 
+<!-- ─── DRAWING OVERLAY ─── -->
+<canvas id="drawCanvas"></canvas>
+
+<div id="drawToolbar" aria-label="Drawing toolbar" role="toolbar">
+  <div class="draw-section-label">Color</div>
+  <div class="draw-colors">
+    <button class="draw-swatch active" data-color="#00d4a0" style="background:#00d4a0" title="Teal"></button>
+    <button class="draw-swatch" data-color="#ffffff" style="background:#ffffff" title="White"></button>
+    <button class="draw-swatch" data-color="#ff4757" style="background:#ff4757" title="Red"></button>
+    <button class="draw-swatch" data-color="#ffd700" style="background:#ffd700" title="Yellow"></button>
+    <button class="draw-swatch" data-color="#4da6ff" style="background:#4da6ff" title="Blue"></button>
+    <button class="draw-swatch" data-color="#ff6b9d" style="background:#ff6b9d" title="Pink"></button>
+    <button class="draw-swatch" data-color="#ff8c42" style="background:#ff8c42" title="Orange"></button>
+    <button class="draw-swatch" data-color="#111111" style="background:#111111" title="Black"></button>
+    <label class="draw-color-pick" title="Custom color">
+      <input type="color" id="drawColorPicker" value="#00d4a0" />
+    </label>
+  </div>
+  <div class="draw-section-label">Size — <span id="drawSizeLabel">4</span>px</div>
+  <input type="range" id="drawSize" min="2" max="30" value="4" class="draw-slider" />
+  <div class="draw-actions">
+    <button id="drawEraser" class="draw-tool-btn">Eraser</button>
+    <button id="drawClear" class="draw-tool-btn">Clear</button>
+  </div>
+</div>
+
+<button id="drawToggle" aria-label="Toggle drawing mode">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+  </svg>
+</button>
+
 </body>
 </html>
