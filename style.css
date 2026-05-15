@@ -910,3 +910,126 @@ body.draw-active #drawToolbar {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+/* ─── RUNNING DUCK ─── */
+#runningDuck {
+  position: fixed;
+  bottom: 10px;
+  left: -80px;
+  z-index: 350;
+  display: none;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#runningDuck.duck-go {
+  display: block;
+  animation: duckRun 8s linear forwards;
+}
+
+#duckSprite {
+  width: 66px;
+  height: 66px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+@keyframes duckRun {
+  from { left: -80px; }
+  to   { left: calc(100vw + 80px); }
+}
+
+/* ─── BALLGAME POPUP ─── */
+#ballgameBtn {
+  position: fixed;
+  z-index: 350;
+  display: none;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: ballgamePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             ballgamePulse 2.2s ease-in-out 0.3s infinite;
+  transform-origin: center;
+}
+
+#ballgameBtn.ballgame-visible {
+  display: block;
+}
+
+#ballgameBtn img {
+  width: 100px;
+  height: 90px;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(138, 79, 255, 0.5));
+  transition: transform 0.15s;
+}
+
+#ballgameBtn:hover img {
+  transform: scale(1.15);
+}
+
+@keyframes ballgamePop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ballgamePulse {
+  0%,  100% { transform: scale(1);    }
+  50%       { transform: scale(1.12); }
+}
+
+/* ─── RICE BOWL POPUP ─── */
+#riceBowlBtn {
+  position: fixed;
+  z-index: 350;
+  display: none;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: riceBowlPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+             riceBowlPulse 2.2s ease-in-out 0.3s infinite;
+  transform-origin: center;
+}
+
+#riceBowlBtn.ricebowl-visible {
+  display: block;
+}
+
+#riceBowlBtn img {
+  width: 120px;
+  height: 120px;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(255, 160, 60, 0.5));
+  transition: transform 0.15s;
+}
+
+#riceBowlBtn:hover img {
+  transform: scale(1.15);
+}
+
+@keyframes riceBowlPop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes riceBowlPulse {
+  0%,  100% { transform: scale(1);    }
+  50%       { transform: scale(1.12); }
+}

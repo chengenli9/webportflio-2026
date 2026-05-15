@@ -254,3 +254,102 @@ drawEraserBtn.addEventListener('click', () => {
 drawClearBtn.addEventListener('click', () => {
   ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
 });
+
+// ─── RUNNING DUCK ─── //
+(function () {
+  const duck = document.getElementById('runningDuck');
+  const sprite = document.getElementById('duckSprite');
+  const frames = ['images/duck_run1.png', 'images/duck_run2.png'];
+  let frameIdx = 0;
+
+  function launchDuck() {
+    frameIdx = 0;
+    sprite.src = frames[0];
+    duck.style.display = 'block';
+    // Force reflow so the animation restarts cleanly
+    duck.classList.remove('duck-go');
+    void duck.offsetWidth;
+    duck.classList.add('duck-go');
+
+    const frameInterval = setInterval(() => {
+      frameIdx = (frameIdx + 1) % 2;
+      sprite.src = frames[frameIdx];
+    }, 150);
+
+    duck.addEventListener('animationend', () => {
+      clearInterval(frameInterval);
+      duck.classList.remove('duck-go');
+      duck.style.display = 'none';
+      setTimeout(launchDuck, 20000);
+    }, { once: true });
+  }
+
+  setTimeout(launchDuck, 10000);
+}());
+
+// ─── BALLGAME POPUP ─── //
+(function () {
+  const btn = document.getElementById('ballgameBtn');
+  const MARGIN = 70; // keep it fully on screen
+
+  function showBallgame() {
+    const maxX = window.innerWidth  - MARGIN * 2;
+    const maxY = window.innerHeight - MARGIN * 2;
+    const x = Math.floor(Math.random() * maxX) + MARGIN;
+    const y = Math.floor(Math.random() * maxY) + MARGIN;
+
+    btn.style.left = x + 'px';
+    btn.style.top  = y + 'px';
+    btn.classList.add('ballgame-visible');
+
+    // Hide after 6 seconds if not clicked
+    const hideTimer = setTimeout(hideBallgame, 6000);
+
+    btn.addEventListener('click', () => {
+      clearTimeout(hideTimer);
+      hideBallgame();
+    }, { once: true });
+  }
+
+  function hideBallgame() {
+    btn.classList.remove('ballgame-visible');
+    btn.style.display = '';
+    setTimeout(showBallgame, 30000);
+  }
+
+  // First appearance after 30 seconds
+  setTimeout(showBallgame, 30000);
+}());
+
+// ─── RICE BOWL POPUP ─── //
+(function () {
+  const btn = document.getElementById('riceBowlBtn');
+  const MARGIN = 70;
+
+  function showRiceBowl() {
+    const maxX = window.innerWidth  - MARGIN * 2;
+    const maxY = window.innerHeight - MARGIN * 2;
+    const x = Math.floor(Math.random() * maxX) + MARGIN;
+    const y = Math.floor(Math.random() * maxY) + MARGIN;
+
+    btn.style.left = x + 'px';
+    btn.style.top  = y + 'px';
+    btn.classList.add('ricebowl-visible');
+
+    const hideTimer = setTimeout(hideRiceBowl, 6000);
+
+    btn.addEventListener('click', () => {
+      clearTimeout(hideTimer);
+      hideRiceBowl();
+    }, { once: true });
+  }
+
+  function hideRiceBowl() {
+    btn.classList.remove('ricebowl-visible');
+    btn.style.display = '';
+    setTimeout(showRiceBowl, 30000);
+  }
+
+  // Offset by 15s so both popups don't appear at the same time
+  setTimeout(showRiceBowl, 45000);
+}());
