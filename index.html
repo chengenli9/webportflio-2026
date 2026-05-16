@@ -191,23 +191,15 @@
   <div class="fade-in">
     <div class="section-label">03 — Projects</div>
     <h2>Things I've built</h2>
-    <div class="carousel-container">
-      <button class="carousel-btn carousel-btn-left" aria-label="Previous projects"><</button>
-      <div class="carousel-wrapper">
-        <div class="projects-carousel">
+    <div class="projects-grid">
 
           <div class="project-card">
             <img src="images/scenerio.jpg" alt="Scenerio" class="project-image" />
             <div class="project-content">
               <div class="project-name">Scenerio</div>
-              <div class="project-desc-short">
-                An agentic video editing tool that uses Gemini models and FFMpeg to generate and edit videos from text prompts.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                An agentic video editing tool that uses Gemini models and FFMpeg to generate and edit videos from text prompts. This project was built in 24 hours with the help of Claude, winning 1st place in the Google Track at BeaverHacks 2026.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="0">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">React</span>
@@ -224,14 +216,9 @@
             <img src="images/libay.jpg" alt="LiBay" class="project-image" />
             <div class="project-content">
               <div class="project-name">LiBay</div>
-              <div class="project-desc-short">
-                A full stack EBay 'clone', final project for database management systems class.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                A full stack EBay 'clone', final project for database management systems class, featuring a MySQL database, and PHP frontend.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="1">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">MySQL</span>
@@ -245,14 +232,9 @@
             <img src="images/drmole.jpg" alt="Dr.Mole" class="project-image" />
             <div class="project-content">
               <div class="project-name">Dr.Mole</div>
-              <div class="project-desc-short">
-                A mobile app designed to help classify moles and raise awareness about skin cancer.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                A mobile app designed to raise awareness about skin cancer. The app uses computer vision and photo scanning to help classify moles and highlight potential signs of melanoma. Dr.Mole allows users to track mole changes over time. Noticing any unusual patterns early on is a major factor in early skin cancer detection, and with the help of our app's progression summary feature and AI powered analysis, users are instantly notified when a mole may require attention and are encouraged to connect with a dermatologist promptly. This project was built in 24 hours by a team of four UP students and with the help of Claude, winning 3rd place in the Philanthropy Track at HackUP 2026.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="2">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">React-Native</span>
@@ -269,14 +251,9 @@
             <img src="images/uptimemachine.jpg" alt="UP Time Machine" class="project-image" />
             <div class="project-content">
               <div class="project-name">UP Time Machine</div>
-              <div class="project-desc-short">
-                A geolocation-enabled web app with an interactive real-world map using OpenStreetMap and Leaflet.js.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                A geolocation-enabled web app built for a real client, featuring an interactive real-world map using OpenStreetMap and Leaflet.js, an ExpressJS backend, and MySQL data layer.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="3">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">HTML/CSS</span>
@@ -291,14 +268,9 @@
             <img src="images/webgame.jpg" alt="JavaScript Web Games" class="project-image" />
             <div class="project-content">
               <div class="project-name">JavaScript Web Games</div>
-              <div class="project-desc-short">
-                A collection of interactive browser games with polished UIs built in ReactJS and Tailwind CSS.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                A collection of interactive browser games with polished UIs built in ReactJS and Tailwind CSS, applying OOP and functional programming patterns for clean, modular architecture.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="4">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">React</span>
@@ -312,14 +284,9 @@
             <img src="images/hexgame.png" alt="Hex Mobile Game" class="project-image" />
             <div class="project-content">
               <div class="project-name">Hex Mobile Game</div>
-              <div class="project-desc-short">
-                An Android strategy game developed with Android Studio, Java, and XML.
-              </div>
-              <div class="project-desc-full" style="display: none;">
-                An Android strategy game developed with Android Studio, Java, and XML. Led sprint meetings and team coordination, delivering a product that exceeded course requirements.
-              </div>
               <div class="project-actions">
                 <button class="read-more-btn" data-project="5">Read more</button>
+                <a href="#" target="_blank" class="project-link-btn">Link ↗</a>
               </div>
               <div class="tag-row">
                 <span class="tag">Android Studio</span>
@@ -329,10 +296,6 @@
             </div>
           </div>
 
-        </div>
-        <div class="card-dots" id="cardDots"></div>
-      </div>
-      <button class="carousel-btn carousel-btn-right" aria-label="Next projects">></button>
     </div>
   </div>
 </section>
@@ -512,15 +475,15 @@
   </svg>
 </button>
 
-<!-- ─── BALLGAME POPUP ─── -->
+<!-- ─── BALLGAME POPUP ───
 <a id="ballgameBtn" href="https://chengenli9.github.io/fruit-game-alpha/" target="_blank" rel="noopener noreferrer" aria-label="Fruit Game" draggable="false">
   <img src="images/ballgame.png" alt="Fruit game" draggable="false" />
 </a>
 
 <!-- ─── RICE BOWL POPUP ─── -->
-<a id="riceBowlBtn" href="https://chengenli9.github.io/Rice-Clicker-V2/" target="_blank" rel="noopener noreferrer" aria-label="Rice Clicker" draggable="false">
+<!-- <a id="riceBowlBtn" href="https://chengenli9.github.io/Rice-Clicker-V2/" target="_blank" rel="noopener noreferrer" aria-label="Rice Clicker" draggable="false">
   <img src="images/rice_bowl.png" alt="Rice clicker" draggable="false" />
-</a>
+</a> -->
 
 <!-- ─── RUNNING DUCK ─── -->
 <a id="runningDuck" href="https://chengenli9.github.io/Dim-Sum-Duck/" target="_blank" rel="noopener noreferrer" aria-label="Dim Sum Duck">

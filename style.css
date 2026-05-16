@@ -395,82 +395,24 @@
   }
 
   /* ─── PROJECTS ─── */
-  .carousel-container {
+  .projects-grid {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-  }
-  .carousel-wrapper {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 1.25rem;
   }
-  .projects-carousel {
-    position: relative;
-    width: 436px;
-    height: 598px;
-  }
-  .carousel-btn {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--border);
-    width: 36px;
-    height: 80px;
-    border-radius: 4px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 244px;
-    transition: border-color 0.2s, color 0.2s, background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .carousel-btn:hover {
-    border-color: var(--accent);
-    background: var(--accent-dim);
-    color: var(--accent);
-    transform: none;
-  }
   .project-card {
-    position: absolute;
-    top: 0;
-    left: 20px;
-    width: 387px;
-    height: 569px;
+    flex: 0 0 calc(33.333% - 0.84rem);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease, background 0.2s;
+    transition: background 0.2s, border-color 0.2s;
   }
-  .project-card.stack-active {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-    z-index: 10;
-    pointer-events: auto;
-  }
-  .project-card.stack-behind-1 {
-    opacity: 0.75;
-    transform: translate(14px, 14px) scale(0.97);
-    z-index: 9;
-  }
-  .project-card.stack-behind-2 {
-    opacity: 0.5;
-    transform: translate(28px, 28px) scale(0.94);
-    z-index: 8;
-  }
-  .project-card.stack-active:hover {
+  .project-card:hover {
     background: #111c22;
+    border-color: var(--accent-mid);
   }
   .project-image {
     width: 100%;
@@ -491,13 +433,9 @@
     font-weight: 700;
     color: var(--text);
   }
-  .project-desc-short {
-    font-size: 0.97rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 0.91rem;
-  }
   .project-actions {
+    display: flex;
+    gap: 0.6rem;
     margin-bottom: 0.91rem;
   }
   .read-more-btn {
@@ -516,6 +454,22 @@
     border-color: var(--accent);
     background: var(--accent-dim);
   }
+  .project-link-btn {
+    background: transparent;
+    color: #4a9eff;
+    border: 1px solid #4a9eff40;
+    padding: 0.48rem 0.97rem;
+    font-size: 0.85rem;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .project-link-btn:hover {
+    border-color: #4a9eff;
+    background: #4a9eff15;
+  }
   .tag-row {
     display: flex;
     flex-wrap: wrap;
@@ -531,33 +485,9 @@
     transition: border-color 0.2s, color 0.2s;
     border-radius: 2px;
   }
-  .project-card.stack-active:hover .tag {
+  .project-card:hover .tag {
     border-color: var(--accent-mid);
     color: var(--accent);
-  }
-  /* ─── CARD DOTS ─── */
-  .card-dots {
-    display: flex;
-    gap: 0.8rem;
-    align-items: center;
-    justify-content: center;
-  }
-  .card-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--muted);
-    opacity: 0.4;
-    transition: background 0.2s, transform 0.2s, opacity 0.2s;
-    cursor: pointer;
-  }
-  .card-dot:hover {
-    opacity: 0.7;
-  }
-  .card-dot.active {
-    background: var(--accent);
-    opacity: 1;
-    transform: scale(1.35);
   }
   /* ─── PROJECT MODAL ─── */
   .project-modal {
@@ -722,9 +652,8 @@
     .stats-grid { grid-template-columns: 1fr 1fr; }
     h1 { font-size: 2.4rem; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    .carousel-container { gap: 1rem; }
-    .carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
-    .project-card { flex: 0 0 280px; }
+    .projects-grid { flex-direction: column; }
+    .project-card { flex: 0 0 auto; width: 100%; }
     .modal-content { padding: 1.5rem; max-width: 90vw; }
     .accomplishment-item { flex-direction: column; }
     .accomplishment-image { width: 100%; }

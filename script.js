@@ -8,47 +8,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ─── CAROUSEL FUNCTIONALITY ─── //
-const carousel = document.querySelector('.projects-carousel');
-const carouselBtnLeft = document.querySelector('.carousel-btn-left');
-const carouselBtnRight = document.querySelector('.carousel-btn-right');
-const cards = Array.from(document.querySelectorAll('.project-card'));
-const dotsContainer = document.getElementById('cardDots');
-let currentIndex = 0;
-
-// Build dots
-cards.forEach((_, i) => {
-  const dot = document.createElement('span');
-  dot.className = 'card-dot' + (i === 0 ? ' active' : '');
-  dot.addEventListener('click', () => { currentIndex = i; updateStack(); });
-  dotsContainer.appendChild(dot);
-});
-
-function updateStack() {
-  const dots = dotsContainer.querySelectorAll('.card-dot');
-  cards.forEach((card, i) => {
-    card.classList.remove('stack-active', 'stack-behind-1', 'stack-behind-2');
-    dots[i].classList.remove('active');
-    const diff = (i - currentIndex + cards.length) % cards.length;
-    if (diff === 0) { card.classList.add('stack-active'); dots[i].classList.add('active'); }
-    else if (diff === 1) card.classList.add('stack-behind-1');
-    else if (diff === 2) card.classList.add('stack-behind-2');
-  });
-}
-
-updateStack();
-
-if (carouselBtnLeft && carouselBtnRight) {
-  carouselBtnLeft.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    updateStack();
-  });
-  carouselBtnRight.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateStack();
-  });
-}
-
 // ─── MODAL FUNCTIONALITY ─── //
 const projectModal = document.getElementById('projectModal');
 const modalClose = document.querySelector('.modal-close');
@@ -287,69 +246,69 @@ drawClearBtn.addEventListener('click', () => {
   setTimeout(launchDuck, 10000);
 }());
 
-// ─── BALLGAME POPUP ─── //
-(function () {
-  const btn = document.getElementById('ballgameBtn');
-  const MARGIN = 70; // keep it fully on screen
+// // ─── BALLGAME POPUP ─── //
+// (function () {
+//   const btn = document.getElementById('ballgameBtn');
+//   const MARGIN = 70; // keep it fully on screen
 
-  function showBallgame() {
-    const maxX = window.innerWidth  - MARGIN * 2;
-    const maxY = window.innerHeight - MARGIN * 2;
-    const x = Math.floor(Math.random() * maxX) + MARGIN;
-    const y = Math.floor(Math.random() * maxY) + MARGIN;
+//   function showBallgame() {
+//     const maxX = window.innerWidth  - MARGIN * 2;
+//     const maxY = window.innerHeight - MARGIN * 2;
+//     const x = Math.floor(Math.random() * maxX) + MARGIN;
+//     const y = Math.floor(Math.random() * maxY) + MARGIN;
 
-    btn.style.left = x + 'px';
-    btn.style.top  = y + 'px';
-    btn.classList.add('ballgame-visible');
+//     btn.style.left = x + 'px';
+//     btn.style.top  = y + 'px';
+//     btn.classList.add('ballgame-visible');
 
-    // Hide after 6 seconds if not clicked
-    const hideTimer = setTimeout(hideBallgame, 6000);
+//     // Hide after 6 seconds if not clicked
+//     const hideTimer = setTimeout(hideBallgame, 6000);
 
-    btn.addEventListener('click', () => {
-      clearTimeout(hideTimer);
-      hideBallgame();
-    }, { once: true });
-  }
+//     btn.addEventListener('click', () => {
+//       clearTimeout(hideTimer);
+//       hideBallgame();
+//     }, { once: true });
+//   }
 
-  function hideBallgame() {
-    btn.classList.remove('ballgame-visible');
-    btn.style.display = '';
-    setTimeout(showBallgame, 30000);
-  }
+//   function hideBallgame() {
+//     btn.classList.remove('ballgame-visible');
+//     btn.style.display = '';
+//     setTimeout(showBallgame, 30000);
+//   }
 
-  // First appearance after 30 seconds
-  setTimeout(showBallgame, 30000);
-}());
+//   // First appearance after 30 seconds
+//   setTimeout(showBallgame, 30000);
+// }());
 
-// ─── RICE BOWL POPUP ─── //
-(function () {
-  const btn = document.getElementById('riceBowlBtn');
-  const MARGIN = 70;
+// // ─── RICE BOWL POPUP ─── //
+// (function () {
+//   const btn = document.getElementById('riceBowlBtn');
+//   const MARGIN = 70;
 
-  function showRiceBowl() {
-    const maxX = window.innerWidth  - MARGIN * 2;
-    const maxY = window.innerHeight - MARGIN * 2;
-    const x = Math.floor(Math.random() * maxX) + MARGIN;
-    const y = Math.floor(Math.random() * maxY) + MARGIN;
+//   function showRiceBowl() {
+//     const maxX = window.innerWidth  - MARGIN * 2;
+//     const maxY = window.innerHeight - MARGIN * 2;
+//     const x = Math.floor(Math.random() * maxX) + MARGIN;
+//     const y = Math.floor(Math.random() * maxY) + MARGIN;
 
-    btn.style.left = x + 'px';
-    btn.style.top  = y + 'px';
-    btn.classList.add('ricebowl-visible');
+//     btn.style.left = x + 'px';
+//     btn.style.top  = y + 'px';
+//     btn.classList.add('ricebowl-visible');
 
-    const hideTimer = setTimeout(hideRiceBowl, 6000);
+//     const hideTimer = setTimeout(hideRiceBowl, 6000);
 
-    btn.addEventListener('click', () => {
-      clearTimeout(hideTimer);
-      hideRiceBowl();
-    }, { once: true });
-  }
+//     btn.addEventListener('click', () => {
+//       clearTimeout(hideTimer);
+//       hideRiceBowl();
+//     }, { once: true });
+//   }
 
-  function hideRiceBowl() {
-    btn.classList.remove('ricebowl-visible');
-    btn.style.display = '';
-    setTimeout(showRiceBowl, 30000);
-  }
+//   function hideRiceBowl() {
+//     btn.classList.remove('ricebowl-visible');
+//     btn.style.display = '';
+//     setTimeout(showRiceBowl, 30000);
+//   }
 
-  // Offset by 15s so both popups don't appear at the same time
-  setTimeout(showRiceBowl, 45000);
-}());
+//   // Offset by 15s so both popups don't appear at the same time
+//   setTimeout(showRiceBowl, 45000);
+// }());
